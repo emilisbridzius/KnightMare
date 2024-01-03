@@ -14,8 +14,9 @@ public class ObjectInteraction : MonoBehaviour
 
     float objectXRot, objectYRot, desiredRot;
     float cooldown = 0.5f;
-    bool isObjectPickedUp, objectCanBeReleased;
+    bool objectPickedUp;
     Vector3 playerInput;
+    public Vector3 previousObjPos;
 
     void Update()
     {
@@ -25,10 +26,10 @@ public class ObjectInteraction : MonoBehaviour
             {
                 if (hit.collider.CompareTag("PickupObject"))
                 {
-                    if (!isObjectPickedUp)
+                    if (!objectPickedUp)
                     {
                         PickUpObject();
-                        isObjectPickedUp = true;
+                        objectPickedUp = true;
                     }
                 }
             }
@@ -36,10 +37,11 @@ public class ObjectInteraction : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0) && currentTime <= 0)
         {
+            ResetHeldObjPos();
             ReleaseObject();
         }
 
-        if (Input.GetMouseButton(1) && isObjectPickedUp)
+        if (Input.GetMouseButton(1) && objectPickedUp)
         {
             // Rotate the picked up object with the mouse right-click
             playerInput.x = (Input.GetAxisRaw("Mouse X") * xTurnRate) * Time.deltaTime;
@@ -59,8 +61,11 @@ public class ObjectInteraction : MonoBehaviour
 
     void PickUpObject()
     {
-        // Picks up the object and locks the camera so the player can rotate the object
+        // Assigns the picked up object variable and its previous position
         pickedUpObject = hit.collider.transform;
+        previousObjPos = pickedUpObject.position;
+
+        // Picks up the object and locks the camera so the player can rotate the object
         pickedUpObject.position = heldAtPos.position;
         camScript.enabled = false;
         moveScript.canMove = false;
@@ -75,7 +80,7 @@ public class ObjectInteraction : MonoBehaviour
 
     void ReleaseObject()
     {
-        isObjectPickedUp = false;
+        objectPickedUp = false;
         pickedUpObject = null;
         camScript.enabled = true;
         moveScript.canMove = true;
@@ -84,6 +89,11 @@ public class ObjectInteraction : MonoBehaviour
         Cursor.visible = false;
 
         Debug.Log("released");
+    }
+
+    void ResetHeldObjPos()
+    {
+        pickedUpObject.position = previousObjPos;
     }
 
     void RunTimer()
