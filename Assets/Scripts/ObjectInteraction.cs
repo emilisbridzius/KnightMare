@@ -5,30 +5,31 @@ using UnityEngine;
 public class ObjectInteraction : MonoBehaviour
 {
     [SerializeField] Transform pickedUpObject, heldAtPos;
+    [SerializeField] GameObject crosshair;
     [SerializeField] RaycastHit hit;
     [SerializeField] Camera cam;
-    [SerializeField] float xTurnRate, yTurnRate;
+    [SerializeField] float xTurnRate, yTurnRate, pickupRange;
     [SerializeField] FirstPersonCam camScript;
     [SerializeField] MovementController moveScript;
-    [SerializeField] float currentTime;
 
-    float objectXRot, objectYRot, desiredRot;
+    float currentTime;
     float cooldown = 0.5f;
-    bool isObjectPickedUp, objectCanBeReleased;
-    Vector3 playerInput;
+    bool objectPickedUp;
+    Vector3 playerInput, previousObjPos;
+    Quaternion previousObjRot;
 
     void Update()
     {
         if (Input.GetMouseButtonDown(0))
         {
-            if (Physics.Raycast(cam.transform.position, cam.transform.forward, out hit, 1f, -1))
+            if (Physics.Raycast(cam.transform.position, cam.transform.forward, out hit, pickupRange))
             {
                 if (hit.collider.CompareTag("PickupObject"))
                 {
-                    if (!isObjectPickedUp)
+                    if (!objectPickedUp)
                     {
                         PickUpObject();
-                        isObjectPickedUp = true;
+                        objectPickedUp = true;
                     }
                 }
             }
@@ -36,22 +37,18 @@ public class ObjectInteraction : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0) && currentTime <= 0)
         {
+            ResetHeldObjPosAndRot();
             ReleaseObject();
         }
 
-        if (Input.GetMouseButton(1) && isObjectPickedUp)
+        if (Input.GetMouseButton(1) && objectPickedUp)
         {
             // Rotate the picked up object with the mouse right-click
-            playerInput.x = (Input.GetAxisRaw("Mouse X") * xTurnRate) * Time.deltaTime;
-            playerInput.y = (Input.GetAxisRaw("Mouse Y") * yTurnRate) * Time.deltaTime;
-            playerInput.Normalize();
+            playerInput.x = (Input.GetAxisRaw("Mouse X") * xTurnRate);
+            playerInput.y = (Input.GetAxisRaw("Mouse Y") * yTurnRate);
 
-            objectYRot -= playerInput.x;
-            objectXRot += playerInput.y;
-
-            //desiredRot = mouseX + mouseY;
-
-            pickedUpObject.rotation = Quaternion.Euler(objectXRot, objectYRot, 0);
+            pickedUpObject.Rotate(Vector3.up, -playerInput.x, Space.World);
+            pickedUpObject.Rotate(Vector3.right, playerInput.y, Space.World);
         }
 
         RunTimer();
@@ -59,14 +56,19 @@ public class ObjectInteraction : MonoBehaviour
 
     void PickUpObject()
     {
-        // Picks up the object and locks the camera so the player can rotate the object
+        // Assigns the picked up object variable and its previous position and rotation
         pickedUpObject = hit.collider.transform;
+        previousObjPos = pickedUpObject.position;
+        previousObjRot = pickedUpObject.rotation;
+
+        // Picks up the object and locks the camera so the player can rotate the object
         pickedUpObject.position = heldAtPos.position;
         camScript.enabled = false;
         moveScript.canMove = false;
 
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
+        crosshair.SetActive(false);
 
         currentTime = cooldown;
 
@@ -75,15 +77,22 @@ public class ObjectInteraction : MonoBehaviour
 
     void ReleaseObject()
     {
-        isObjectPickedUp = false;
+        objectPickedUp = false;
         pickedUpObject = null;
         camScript.enabled = true;
         moveScript.canMove = true;
 
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+        crosshair.SetActive(true);
 
         Debug.Log("released");
+    }
+
+    void ResetHeldObjPosAndRot()
+    {
+        pickedUpObject.position = previousObjPos;
+        pickedUpObject.rotation = previousObjRot;
     }
 
     void RunTimer()

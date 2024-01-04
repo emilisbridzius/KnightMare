@@ -18,7 +18,7 @@ public class MovementController : MonoBehaviour
         canMove = true;
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
         if (canMove)
         {
@@ -30,7 +30,7 @@ public class MovementController : MonoBehaviour
 
             Vector3 movementDirection = forward * Input.GetAxis("Vertical") + right * Input.GetAxis("Horizontal");
 
-            // Apply movement
+
             transform.Translate(movementDirection * moveSpeed * Time.deltaTime, Space.World);
 
         }
