@@ -7,22 +7,20 @@ public class ObjectInteraction : MonoBehaviour
     [SerializeField] Transform pickedUpObject, heldAtPos;
     [SerializeField] RaycastHit hit;
     [SerializeField] Camera cam;
-    [SerializeField] float xTurnRate, yTurnRate;
+    [SerializeField] float xTurnRate, yTurnRate, pickupRange;
     [SerializeField] FirstPersonCam camScript;
     [SerializeField] MovementController moveScript;
-    [SerializeField] float currentTime;
 
-    float objectXRot, objectYRot, desiredRot;
+    float objectXRot, objectYRot, desiredRot, currentTime;
     float cooldown = 0.5f;
     bool objectPickedUp;
-    Vector3 playerInput;
-    public Vector3 previousObjPos;
+    Vector3 playerInput, previousObjPos;
 
     void Update()
     {
         if (Input.GetMouseButtonDown(0))
         {
-            if (Physics.Raycast(cam.transform.position, cam.transform.forward, out hit, 1f, -1))
+            if (Physics.Raycast(cam.transform.position, cam.transform.forward, out hit, pickupRange))
             {
                 if (hit.collider.CompareTag("PickupObject"))
                 {
@@ -44,9 +42,8 @@ public class ObjectInteraction : MonoBehaviour
         if (Input.GetMouseButton(1) && objectPickedUp)
         {
             // Rotate the picked up object with the mouse right-click
-            playerInput.x = (Input.GetAxisRaw("Mouse X") * xTurnRate) * Time.deltaTime;
-            playerInput.y = (Input.GetAxisRaw("Mouse Y") * yTurnRate) * Time.deltaTime;
-            playerInput.Normalize();
+            playerInput.x = (Input.GetAxisRaw("Mouse X") * xTurnRate);
+            playerInput.y = (Input.GetAxisRaw("Mouse Y") * yTurnRate);
 
             objectYRot -= playerInput.x;
             objectXRot += playerInput.y;
