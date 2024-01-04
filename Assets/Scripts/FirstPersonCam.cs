@@ -5,15 +5,17 @@ using UnityEngine;
 public class FirstPersonCam : MonoBehaviour
 {
     [SerializeField] float xSensitivity, ySensitivity, bobSpeed, bobAmount;
-    [SerializeField] Transform orientation;
+    [SerializeField] Transform orientation, cameraPos;
 
-    float xRotation, yRotation;
+    float xRotation, yRotation, defaultPosY;
     float timer = 0f;
 
     private void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+
+        defaultPosY = transform.localPosition.y;
     }
 
     private void Update()
@@ -37,33 +39,21 @@ public class FirstPersonCam : MonoBehaviour
 
     void Bobbing()
     {
-        float verticalInput = Input.GetAxis("Vertical");
         float horizontalInput = Input.GetAxis("Horizontal");
+        float verticalInput = Input.GetAxis("Vertical");
 
         if (Mathf.Abs(verticalInput) > 0.1f || Mathf.Abs(horizontalInput) > 0.1f)
         {
-            // Calculate the bobbing motion
-            float waveSlice = Mathf.Sin(timer);
-            timer += bobSpeed;
-
-            if (timer > Mathf.PI * 2)
-            {
-                timer = timer - (Mathf.PI * 2);
-            }
-
-            // Apply bobbing to the camera's Y position
-            float bob = waveSlice * bobAmount;
-            Vector3 cameraPosition = transform.localPosition;
-            cameraPosition.y = bob;
-            transform.localPosition = cameraPosition;
+            //Player is moving
+            timer += Time.deltaTime * bobSpeed;
+            transform.localPosition = new Vector3(transform.localPosition.x, defaultPosY + Mathf.Sin(timer) * bobAmount, transform.localPosition.z);
         }
         else
         {
-            // If the player is not moving, reset the timer and camera position
-            timer = 0f;
-            Vector3 cameraPosition = transform.localPosition;
-            cameraPosition.y = 0f;
-            transform.localPosition = cameraPosition;
+            //Idle
+            timer = 0;
+            transform.localPosition = new Vector3(transform.localPosition.x, Mathf.Lerp(transform.localPosition.y, defaultPosY, Time.deltaTime * bobSpeed),
+                transform.localPosition.z);
         }
     }
 }
