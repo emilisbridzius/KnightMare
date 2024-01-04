@@ -5,16 +5,18 @@ using UnityEngine;
 public class ObjectInteraction : MonoBehaviour
 {
     [SerializeField] Transform pickedUpObject, heldAtPos;
+    [SerializeField] GameObject crosshair;
     [SerializeField] RaycastHit hit;
     [SerializeField] Camera cam;
     [SerializeField] float xTurnRate, yTurnRate, pickupRange;
     [SerializeField] FirstPersonCam camScript;
     [SerializeField] MovementController moveScript;
 
-    float objectXRot, objectYRot, desiredRot, currentTime;
+    float currentTime;
     float cooldown = 0.5f;
     bool objectPickedUp;
     Vector3 playerInput, previousObjPos;
+    Quaternion previousObjRot;
 
     void Update()
     {
@@ -35,7 +37,7 @@ public class ObjectInteraction : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0) && currentTime <= 0)
         {
-            ResetHeldObjPos();
+            ResetHeldObjPosAndRot();
             ReleaseObject();
         }
 
@@ -45,12 +47,8 @@ public class ObjectInteraction : MonoBehaviour
             playerInput.x = (Input.GetAxisRaw("Mouse X") * xTurnRate);
             playerInput.y = (Input.GetAxisRaw("Mouse Y") * yTurnRate);
 
-            objectYRot -= playerInput.x;
-            objectXRot += playerInput.y;
-
-            //desiredRot = mouseX + mouseY;
-
-            pickedUpObject.rotation = Quaternion.Euler(objectXRot, objectYRot, 0);
+            pickedUpObject.Rotate(Vector3.up, -playerInput.x, Space.World);
+            pickedUpObject.Rotate(Vector3.right, playerInput.y, Space.World);
         }
 
         RunTimer();
@@ -58,9 +56,10 @@ public class ObjectInteraction : MonoBehaviour
 
     void PickUpObject()
     {
-        // Assigns the picked up object variable and its previous position
+        // Assigns the picked up object variable and its previous position and rotation
         pickedUpObject = hit.collider.transform;
         previousObjPos = pickedUpObject.position;
+        previousObjRot = pickedUpObject.rotation;
 
         // Picks up the object and locks the camera so the player can rotate the object
         pickedUpObject.position = heldAtPos.position;
@@ -69,6 +68,7 @@ public class ObjectInteraction : MonoBehaviour
 
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
+        crosshair.SetActive(false);
 
         currentTime = cooldown;
 
@@ -84,13 +84,15 @@ public class ObjectInteraction : MonoBehaviour
 
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+        crosshair.SetActive(true);
 
         Debug.Log("released");
     }
 
-    void ResetHeldObjPos()
+    void ResetHeldObjPosAndRot()
     {
         pickedUpObject.position = previousObjPos;
+        pickedUpObject.rotation = previousObjRot;
     }
 
     void RunTimer()
