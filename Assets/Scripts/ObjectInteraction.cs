@@ -1,10 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ObjectInteraction : MonoBehaviour
 {
-    [SerializeField] Transform pickedUpObject, heldAtPos;
+    [SerializeField] Transform pickedUpObject, heldAtPos, sleepText;
     [SerializeField] GameObject crosshair;
     [SerializeField] RaycastHit hit;
     [SerializeField] Camera cam;
@@ -31,6 +32,10 @@ public class ObjectInteraction : MonoBehaviour
                         PickUpObject();
                         objectPickedUp = true;
                     }
+                }
+                else if (hit.collider.CompareTag("Bed"))
+                {
+                    BedActivation();
                 }
             }
         }
@@ -93,6 +98,17 @@ public class ObjectInteraction : MonoBehaviour
     {
         pickedUpObject.position = previousObjPos;
         pickedUpObject.rotation = previousObjRot;
+    }
+
+    void BedActivation()
+    {
+        sleepText.gameObject.SetActive(true);
+
+        camScript.enabled = false;
+        moveScript.canMove = false;
+
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
     }
 
     void RunTimer()
