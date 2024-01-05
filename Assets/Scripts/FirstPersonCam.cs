@@ -52,7 +52,7 @@ public class FirstPersonCam : MonoBehaviour
         {
             //Idle
             timer = 0;
-            transform.localPosition = new Vector3(transform.localPosition.x, Mathf.Lerp(transform.localPosition.y, defaultPosY, Time.deltaTime * bobSpeed),
+            transform.localPosition = new Vector3(transform.localPosition.x, Mathf.Lerp(transform.localPosition.y, defaultPosY, bobSpeed),
                 transform.localPosition.z);
         }
     }
