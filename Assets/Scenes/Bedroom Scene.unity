@@ -657,7 +657,7 @@ Transform:
   m_Children:
   - {fileID: 1554705217}
   m_Father: {fileID: 0}
-  m_RootOrder: 29
+  m_RootOrder: 30
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &69584822
 PrefabInstance:
@@ -2370,7 +2370,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh48302
+  m_Name: pb_Mesh94700
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -6366,6 +6366,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pickedUpObject: {fileID: 0}
   heldAtPos: {fileID: 5720713767910194399}
+  sleepText: {fileID: 0}
+  blurEffect: {fileID: 0}
   crosshair: {fileID: 2064076375}
   cam: {fileID: 907415232}
   xTurnRate: 3
@@ -17346,7 +17348,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 94d61e89cddc8924e9f09538af0aa87a, type: 3}
       propertyPath: m_RootOrder
-      value: 30
+      value: 31
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 94d61e89cddc8924e9f09538af0aa87a, type: 3}
       propertyPath: m_LocalScale.x
@@ -20486,6 +20488,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: b3d0d47d4a7567948a93d515660fadc3, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 9134becd44893e94e9eda419a4c4bc40, type: 2}
     - target: {fileID: 919132149155446097, guid: b3d0d47d4a7567948a93d515660fadc3, type: 3}
       propertyPath: m_Name
       value: Drawer (1)
