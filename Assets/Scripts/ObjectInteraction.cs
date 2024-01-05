@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class ObjectInteraction : MonoBehaviour
 {
-    [SerializeField] Transform pickedUpObject, heldAtPos, sleepText;
+    [SerializeField] Transform pickedUpObject, heldAtPos, sleepText, blurEffect;
     [SerializeField] GameObject crosshair;
     [SerializeField] RaycastHit hit;
     [SerializeField] Camera cam;
@@ -74,6 +74,7 @@ public class ObjectInteraction : MonoBehaviour
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
         crosshair.SetActive(false);
+        blurEffect.gameObject.SetActive(true);
 
         currentTime = cooldown;
 
@@ -90,6 +91,7 @@ public class ObjectInteraction : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         crosshair.SetActive(true);
+        blurEffect.gameObject.SetActive(false);
 
         Debug.Log("released");
     }
