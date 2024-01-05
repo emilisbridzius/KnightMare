@@ -19,6 +19,13 @@ public class ObjectInteraction : MonoBehaviour
     Vector3 playerInput, previousObjPos;
     Quaternion previousObjRot;
 
+    ObjectPickupUI ui;
+
+    private void Start()
+    {
+        ui = GameObject.Find("Canvas").GetComponent<ObjectPickupUI>();
+    }
+
     void Update()
     {
         if (Input.GetMouseButtonDown(0))
@@ -79,6 +86,17 @@ public class ObjectInteraction : MonoBehaviour
         currentTime = cooldown;
 
         Debug.Log("picked up");
+
+        // lewis code
+        // looks for the data component on the selected object
+        InteractableObjectData objData = pickedUpObject.GetComponent<InteractableObjectData>();
+        
+        // checks if null and then activates ui
+        if (objData != null)
+        {
+            ui.ShowUI(objData);
+        }
+        
     }
 
     void ReleaseObject()
@@ -94,6 +112,8 @@ public class ObjectInteraction : MonoBehaviour
         blurEffect.gameObject.SetActive(false);
 
         Debug.Log("released");
+
+        ui.HideUI();
     }
 
     void ResetHeldObjPosAndRot()
