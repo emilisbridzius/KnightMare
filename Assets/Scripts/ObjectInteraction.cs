@@ -26,6 +26,7 @@ public class ObjectInteraction : MonoBehaviour
     private void Start()
     {
         ui = FindObjectOfType<ObjectPickupUI>();
+        objectPickedUp = false;
     }
 
     void Update()
