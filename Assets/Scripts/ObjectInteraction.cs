@@ -49,8 +49,13 @@ public class ObjectInteraction : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0) && currentTime <= 0)
         {
-            ResetHeldObjPosAndRot();
-            ReleaseObject();
+            // if dropping objects doesn't work anymore then put the code in here outside of this if statement
+            if (objectPickedUp)
+            {
+                ResetHeldObjPosAndRot();
+                ReleaseObject();
+            }
+            
         }
 
         if (Input.GetMouseButton(1) && objectPickedUp)
@@ -106,8 +111,7 @@ public class ObjectInteraction : MonoBehaviour
         camScript.enabled = true;
         moveScript.canMove = true;
 
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
+        LockMouse();
         crosshair.SetActive(true);
         blurEffect.gameObject.SetActive(false);
 
@@ -133,8 +137,7 @@ public class ObjectInteraction : MonoBehaviour
         camScript.enabled = false;
         moveScript.canMove = false;
 
-        Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
+        ReleaseMouse();
     }
 
     void RunTimer()
@@ -143,5 +146,17 @@ public class ObjectInteraction : MonoBehaviour
         { 
             currentTime -= Time.deltaTime;
         } 
+    }
+
+    private void ReleaseMouse()
+    {
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+    }
+
+    private void LockMouse()
+    {
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 }
