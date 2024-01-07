@@ -35,6 +35,7 @@ public class EnemyFOV : MonoBehaviour
     {
         playerRef = GameObject.Find("Player");
         playerPos = playerRef.gameObject.transform;
+        patrol = GetComponent<PatrolRandom>();
 
         enemyAgentTransform = transform;
 
@@ -99,8 +100,7 @@ public class EnemyFOV : MonoBehaviour
                 enemyAgent.speed = 3f;
 
             }
-
-            patrol.PatrolToRandomPoint();
+            patrol.canPatrol = true;
         }
 
         if (canSeePlayer)
@@ -134,10 +134,6 @@ public class EnemyFOV : MonoBehaviour
             if (enemyAgent.isActiveAndEnabled) enemyAgent.isStopped = false;
             enemyAgent.SetDestination(playerPos.position);
         }
-        //else if (!canSeePlayer && !hasSeenPlayer)
-        //{
-        //    patrol.PatrolToRandomPoint();
-        //}
     }
 
     void Walking()

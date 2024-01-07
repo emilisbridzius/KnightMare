@@ -5,7 +5,7 @@ public class PatrolRandom : MonoBehaviour
 {
     public Transform[] patrolPoints;
     private NavMeshAgent navMeshAgent;
-    private int currentPatrolIndex;
+    public int currentPatrolIndex;
     EnemyFOV fov;
     public bool canPatrol;
 
