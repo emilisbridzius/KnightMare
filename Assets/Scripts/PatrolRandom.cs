@@ -1,76 +1,57 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
 public class PatrolRandom : MonoBehaviour
 {
     public Transform[] patrolPoints;
-    public float patrolInterval = 3f;
-    public float wanderInterval = 2f;
-    public float wanderRadius = 2f;
-
-    private int currentPatrolIndex = 0;
     private NavMeshAgent navMeshAgent;
-    private EnemyFOV enemyFOV;
-    public float timeSinceLastPatrol = 0f;
+    private int currentPatrolIndex;
+    EnemyFOV fov;
+    public bool canPatrol;
 
-    private void Start()
+    void Start()
     {
         navMeshAgent = GetComponent<NavMeshAgent>();
-        enemyFOV = GetComponent<EnemyFOV>();
+        fov = GetComponent<EnemyFOV>();
+        canPatrol = true;
 
-        // Set up NavMeshAgent settings
-        navMeshAgent.autoBraking = false;
-        navMeshAgent.stoppingDistance = 0.1f;  // Adjust stopping distance
-        navMeshAgent.updateRotation = true;
-        navMeshAgent.updatePosition = true;
-    }
-
-    private void Update()
-    {
-
-        if (!enemyFOV.canSeePlayer && !enemyFOV.hasSeenPlayer)
+        if (patrolPoints.Length == 0)
         {
-            PatrolToNextPoint();
+            Debug.LogError("No patrol points assigned. Please assign patrol points in the inspector.");
         }
-        else if (enemyFOV.canSeePlayer || enemyFOV.hasSeenPlayer)
+        else
         {
-            // If player is detected, reset timeSinceLastPatrol
-            timeSinceLastPatrol = 0f;
-        }
-
-        // Check if it's time to wander
-        if (!enemyFOV.canSeePlayer && !enemyFOV.hasSeenPlayer && timeSinceLastPatrol > patrolInterval)
-        {
-            Wander();
-            timeSinceLastPatrol = 0f;
-        }
-
-        timeSinceLastPatrol += Time.deltaTime;
-    }
-
-    public void PatrolToNextPoint()
-    {
-        navMeshAgent.isStopped = false;
-
-        if (patrolPoints.Length > 0 && navMeshAgent.remainingDistance < 0.5f)
-        {
-            currentPatrolIndex = (currentPatrolIndex + 1) % patrolPoints.Length;
+            // Set the initial destination to the first patrol point
+            currentPatrolIndex = 0;
             navMeshAgent.SetDestination(patrolPoints[currentPatrolIndex].position);
-
-            Debug.Log("Moving to point " + currentPatrolIndex);
         }
     }
 
-    private void Wander()
+    void Update()
     {
-        Vector3 randomDirection = Random.insideUnitSphere * wanderRadius;
-        randomDirection += transform.position;
+        if (!fov.canSeePlayer && !fov.hasSeenPlayer && canPatrol)
+        {
+            // Check if the agent has reached the current patrol point
+            if (!navMeshAgent.pathPending && navMeshAgent.remainingDistance < 0.5f)
+            {
+                // Move to the next random point
+                PatrolToRandomPoint();
+            }
 
-        NavMeshHit navHit;
-        NavMesh.SamplePosition(randomDirection, out navHit, wanderRadius, NavMesh.AllAreas);
+        }
+    }
 
-        navMeshAgent.SetDestination(navHit.position);
+    private void PatrolToRandomPoint()
+    {
+        // Select a random index from the patrol points list
+        int randomIndex = Random.Range(0, patrolPoints.Length);
+
+        // Set the destination to the randomly selected point
+        navMeshAgent.SetDestination(patrolPoints[randomIndex].position);
+
+        // Update the current patrol index
+        currentPatrolIndex = randomIndex;
+
+        Debug.Log("Moving to random point: " + currentPatrolIndex);
     }
 }

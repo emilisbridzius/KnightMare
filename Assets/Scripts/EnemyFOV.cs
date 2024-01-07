@@ -112,9 +112,9 @@ public class EnemyFOV : MonoBehaviour
             if (enemyAgent.isActiveAndEnabled) enemyAgent.isStopped = false;
             enemyAgent.SetDestination(playerPos.position);
         }
-        else if (!canSeePlayer && !hasSeenPlayer)
-        {
-            patrol.PatrolToNextPoint();
-        }
+        //else if (!canSeePlayer && !hasSeenPlayer)
+        //{
+        //    patrol.PatrolToRandomPoint();
+        //}
     }
 }
