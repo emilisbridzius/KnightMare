@@ -57,15 +57,16 @@ public class ObjectPickupUI : MonoBehaviour
 
     public void ShowUI(InteractableObjectData current)
     {
+        Debug.Log("send help");
         currentObjData = current;
         uiState = MenuState.ACTIVE;
         interactionUI.SetActive(true);
         itemName.text = currentObjData.ObjectName;
-        
+        itemText.text = currentObjData.ObjectText;
+
         if (currentObjData.HasText)
         {
             textTogglePrompt.SetActive(true);
-            itemText.text = currentObjData.ObjectText;
         }
     }
 

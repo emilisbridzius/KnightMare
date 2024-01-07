@@ -23,7 +23,7 @@ public class ObjectInteraction : MonoBehaviour
 
     private void Start()
     {
-        ui = GameObject.Find("Canvas").GetComponent<ObjectPickupUI>();
+        ui = FindObjectOfType<ObjectPickupUI>();
     }
 
     void Update()
@@ -118,8 +118,12 @@ public class ObjectInteraction : MonoBehaviour
 
     void ResetHeldObjPosAndRot()
     {
-        pickedUpObject.position = previousObjPos;
-        pickedUpObject.rotation = previousObjRot;
+        if (pickedUpObject != null)
+        {
+            pickedUpObject.position = previousObjPos;
+            pickedUpObject.rotation = previousObjRot;
+        }
+        
     }
 
     void BedActivation()

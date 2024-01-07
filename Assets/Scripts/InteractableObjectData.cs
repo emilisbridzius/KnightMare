@@ -16,7 +16,7 @@ public class InteractableObjectData : MonoBehaviour
 
     public string ObjectText
     {
-        get { return ObjectText; }
+        get { return objectText; }
     }
 
     public bool HasText
