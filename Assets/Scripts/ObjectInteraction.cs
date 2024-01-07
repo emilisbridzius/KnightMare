@@ -86,11 +86,13 @@ public class ObjectInteraction : MonoBehaviour
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
         crosshair.SetActive(false);
-        blurEffect.gameObject.SetActive(true);
+        //blurEffect.gameObject.SetActive(true);
 
         currentTime = cooldown;
 
         Debug.Log("picked up");
+
+        pickedUpObject.GetComponent<BoxCollider>().enabled = false;
 
         // lewis code
         // looks for the data component on the selected object
@@ -106,6 +108,7 @@ public class ObjectInteraction : MonoBehaviour
 
     void ReleaseObject()
     {
+        pickedUpObject.GetComponent<BoxCollider>().enabled = true;
         objectPickedUp = false;
         pickedUpObject = null;
         camScript.enabled = true;

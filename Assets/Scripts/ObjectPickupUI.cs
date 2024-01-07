@@ -16,6 +16,7 @@ public class ObjectPickupUI : MonoBehaviour
     [SerializeField] private TMP_Text itemName;
     [SerializeField] private GameObject interactionUI;
     [SerializeField] private GameObject textTogglePrompt;
+    [SerializeField] private Transform blurEffect;
 
     private InteractableObjectData currentObjData;
 
@@ -42,11 +43,13 @@ public class ObjectPickupUI : MonoBehaviour
                     if (textIsActive)
                     {
                         itemText.gameObject.SetActive(false);
+                        blurEffect.gameObject.SetActive(false);
                     }
                     else
                     {
 
                         itemText.gameObject.SetActive(true);
+                        blurEffect.gameObject.SetActive(true);
                     }
 
                 }
