@@ -9,7 +9,7 @@ EditorBuildSettings:
     path: Assets/Scenes/MainMenu.unity
     guid: c63528b13e4ef8c4f83a1db43f53b227
   - enabled: 1
-    path: Assets/Scenes/Bedroom Scene.unity
+    path: Assets/Scenes/BedroomScene.unity
     guid: 7f190949e84e18c418ebe49ea5dba08c
   - enabled: 1
     path: Assets/Scenes/Forest.unity
