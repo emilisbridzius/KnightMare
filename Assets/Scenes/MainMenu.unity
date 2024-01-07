@@ -8545,7 +8545,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   menuButtonsObj: {fileID: 815353659}
   logoAnim: {fileID: 975116275}
-  startTransition: {fileID: 0}
+  startTransition: {fileID: 53679521}
 --- !u!4 &1756973466
 Transform:
   m_ObjectHideFlags: 0
