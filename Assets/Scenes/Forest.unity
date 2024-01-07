@@ -14,7 +14,7 @@ OcclusionCullingSettings:
 RenderSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 9
-  m_Fog: 0
+  m_Fog: 1
   m_FogColor: {r: 0.1509434, g: 0.1509434, b: 0.1509434, a: 1}
   m_FogMode: 3
   m_FogDensity: 0.06
@@ -18316,7 +18316,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: c4f23080882bb3d448a60c68b74da9a9, type: 3}
   playerSound: {fileID: 673716620}
   soundTimer: 0
-  soundInterval: 0.5
+  soundInterval: 0.8
   canMove: 1
   isMoving: 0
 --- !u!54 &6376628786491422503
