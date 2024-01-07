@@ -9,8 +9,11 @@ public class PlayerData
 
     public List<PlayerFlags> playerFlags;
 
+    public int artifactCount;
+
     public PlayerData(Player player)
     {
         playerFlags = player.playerFlags;
+        artifactCount = player.ArtifactCount;
     }
 }
