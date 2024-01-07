@@ -98,8 +98,23 @@ public class ObjectInteraction : MonoBehaviour
     private void PickupArtifact()
     {
         FindObjectOfType<Player>().ArtifactCount++;
-        Destroy(pickedUpObject);
+        Destroy(pickedUpObject.gameObject);
         FindObjectOfType<Player>().CheckArtifactCount();
+        objectPickedUp = false;
+
+        pickedUpObject = null;
+        camScript.enabled = true;
+        moveScript.canMove = true;
+
+        LockMouse();
+        crosshair.SetActive(true);
+        blurEffect.gameObject.SetActive(false);
+
+        Debug.Log("released");
+
+        ui.HideUI();
+
+        lockRotation = false;
         StartCoroutine(ArtifactUI());
     }
 

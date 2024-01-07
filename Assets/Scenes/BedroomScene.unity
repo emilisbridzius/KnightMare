@@ -7380,6 +7380,7 @@ MonoBehaviour:
   moveScript: {fileID: 6376628785633566066}
   artifactSound: {fileID: 1983612126}
   artifactClip: {fileID: 8300000, guid: 28ca104ce15b35045adc25f665e5bd39, type: 3}
+  artifactCountUI: {fileID: 0}
 --- !u!114 &907415236
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25609,6 +25610,7 @@ GameObject:
   - component: {fileID: 6376628785633566066}
   - component: {fileID: 6376628785633566072}
   - component: {fileID: 6376628785633566067}
+  - component: {fileID: 6376628785633566074}
   m_Layer: 8
   m_Name: Player
   m_TagString: Player
@@ -25616,6 +25618,19 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &6376628785633566074
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6376628785633566073}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0100a105ad5903142a07d9ba84d7dd9e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerFlags: []
 --- !u!4 &6376628785852949030
 Transform:
   m_ObjectHideFlags: 0
