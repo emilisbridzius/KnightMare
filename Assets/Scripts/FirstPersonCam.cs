@@ -44,16 +44,17 @@ public class FirstPersonCam : MonoBehaviour
 
         if (Mathf.Abs(verticalInput) > 0.1f || Mathf.Abs(horizontalInput) > 0.1f)
         {
-            //Player is moving
+            // Player is moving
             timer += Time.deltaTime * bobSpeed;
-            transform.localPosition = new Vector3(transform.localPosition.x, defaultPosY + Mathf.Sin(timer) * bobAmount, transform.localPosition.z);
+            float newY = defaultPosY + Mathf.Sin(timer) * bobAmount;
+            transform.localPosition = new Vector3(transform.localPosition.x, newY, transform.localPosition.z);
         }
         else
         {
-            //Idle
+            // Idle
             timer = 0;
-            transform.localPosition = new Vector3(transform.localPosition.x, Mathf.Lerp(transform.localPosition.y, defaultPosY, bobSpeed),
-                transform.localPosition.z);
+            float newY = Mathf.Lerp(transform.localPosition.y, defaultPosY, bobSpeed);
+            transform.localPosition = new Vector3(transform.localPosition.x, newY, transform.localPosition.z);
         }
     }
 }
