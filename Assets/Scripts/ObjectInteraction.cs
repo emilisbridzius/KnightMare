@@ -52,8 +52,20 @@ public class ObjectInteraction : MonoBehaviour
             // if dropping objects doesn't work anymore then put the code in here outside of this if statement
             if (objectPickedUp)
             {
-                ResetHeldObjPosAndRot();
-                ReleaseObject();
+                if (pickedUpObject.GetComponent<InteractableObjectData>() != null)
+                {
+                    if (pickedUpObject.GetComponent<InteractableObjectData>().IsArtifact)
+                    {
+                        PickupArtifact();
+                    }
+                    else
+                    {
+                        ResetHeldObjPosAndRot();
+                        ReleaseObject();
+                    }
+                }
+                
+                
             }
             
         }
@@ -70,6 +82,14 @@ public class ObjectInteraction : MonoBehaviour
 
         RunTimer();
     }
+
+
+    private void PickupArtifact()
+    {
+        FindObjectOfType<Player>().ArtifactCount++;
+        Destroy(pickedUpObject);
+    }
+
 
     void PickUpObject()
     {

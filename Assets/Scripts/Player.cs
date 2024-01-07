@@ -80,5 +80,6 @@ public class Player : MonoBehaviour
         PlayerData data = SaveSystem.LoadPlayer();
 
         playerFlags = data.playerFlags;
+        artifactCount = data.artifactCount;
     }
 }
