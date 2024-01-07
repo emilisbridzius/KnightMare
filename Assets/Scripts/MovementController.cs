@@ -16,6 +16,7 @@ public class MovementController : MonoBehaviour
 
     public bool canMove;
     public bool isMoving;
+    public float volumeSetting;
 
     private void Start()
     {
@@ -93,6 +94,6 @@ public class MovementController : MonoBehaviour
         AudioClip randomWalkSound = walkSounds[Random.Range(0, walkSounds.Length)];
 
         // Start playing the random walk sound
-        AudioSource.PlayClipAtPoint(randomWalkSound, rb.position, 0.02f);
+        AudioSource.PlayClipAtPoint(randomWalkSound, rb.position, volumeSetting);
     }
 }
