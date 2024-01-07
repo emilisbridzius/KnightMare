@@ -7325,12 +7325,16 @@ MonoBehaviour:
   sleepText: {fileID: 695347690}
   blurEffect: {fileID: 389124645}
   crosshair: {fileID: 2064076375}
+  player: {fileID: 6376628785633566073}
   cam: {fileID: 907415232}
   xTurnRate: 3
   yTurnRate: 3
-  pickupRange: 30
+  pickupRange: 4
+  volumeSetting: 0.08
   camScript: {fileID: 907415236}
   moveScript: {fileID: 6376628785633566066}
+  artifactSound: {fileID: 1983612126}
+  artifactClip: {fileID: 8300000, guid: 28ca104ce15b35045adc25f665e5bd39, type: 3}
 --- !u!114 &907415236
 MonoBehaviour:
   m_ObjectHideFlags: 0

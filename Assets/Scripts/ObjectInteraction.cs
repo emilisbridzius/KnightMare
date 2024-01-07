@@ -6,16 +6,18 @@ using UnityEngine.SceneManagement;
 public class ObjectInteraction : MonoBehaviour
 {
     [SerializeField] Transform pickedUpObject, heldAtPos, sleepText, blurEffect;
-    [SerializeField] GameObject crosshair;
+    [SerializeField] GameObject crosshair, player;
     [SerializeField] RaycastHit hit;
     [SerializeField] Camera cam;
-    [SerializeField] float xTurnRate, yTurnRate, pickupRange;
+    [SerializeField] float xTurnRate, yTurnRate, pickupRange, volumeSetting;
     [SerializeField] FirstPersonCam camScript;
     [SerializeField] MovementController moveScript;
+    [SerializeField] AudioSource artifactSound;
+    [SerializeField] AudioClip artifactClip;
 
     float currentTime;
     float cooldown = 0.5f;
-    bool objectPickedUp;
+    bool objectPickedUp, lockRotation;
     Vector3 playerInput, previousObjPos;
     Quaternion previousObjRot;
 
@@ -36,6 +38,7 @@ public class ObjectInteraction : MonoBehaviour
                 {
                     if (!objectPickedUp)
                     {
+                        lockRotation = true;
                         PickUpObject();
                         objectPickedUp = true;
                     }
@@ -69,6 +72,11 @@ public class ObjectInteraction : MonoBehaviour
         }
 
         RunTimer();
+
+        if (lockRotation)
+        {
+            LockRotation();
+        }
     }
 
     void PickUpObject()
@@ -94,6 +102,9 @@ public class ObjectInteraction : MonoBehaviour
 
         pickedUpObject.GetComponent<BoxCollider>().enabled = false;
 
+        AudioSource.PlayClipAtPoint(artifactClip, artifactSound.transform.position, volumeSetting);
+
+
         // lewis code
         // looks for the data component on the selected object
         InteractableObjectData objData = pickedUpObject.GetComponent<InteractableObjectData>();
@@ -103,6 +114,8 @@ public class ObjectInteraction : MonoBehaviour
         {
             ui.ShowUI(objData);
         }
+
+        LockRotation();
         
     }
 
@@ -110,6 +123,7 @@ public class ObjectInteraction : MonoBehaviour
     {
         pickedUpObject.GetComponent<BoxCollider>().enabled = true;
         objectPickedUp = false;
+
         pickedUpObject = null;
         camScript.enabled = true;
         moveScript.canMove = true;
@@ -121,6 +135,8 @@ public class ObjectInteraction : MonoBehaviour
         Debug.Log("released");
 
         ui.HideUI();
+
+        lockRotation = false;
     }
 
     void ResetHeldObjPosAndRot()
@@ -166,5 +182,13 @@ public class ObjectInteraction : MonoBehaviour
     public void CloseSleepUI()
     {
         sleepText.gameObject.SetActive(false);
+    }
+
+    public void LockRotation()
+    {
+        if (lockRotation)
+        {
+            player.transform.rotation = Quaternion.Euler(player.transform.rotation.eulerAngles.x, player.transform.rotation.eulerAngles.y, player.transform.rotation.eulerAngles.z);
+        }
     }
 }

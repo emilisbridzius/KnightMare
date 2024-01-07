@@ -17950,8 +17950,11 @@ MonoBehaviour:
   xTurnRate: 3
   yTurnRate: 3
   pickupRange: 4
+  volumeSetting: 0.08
   camScript: {fileID: 5720713766998310953}
   moveScript: {fileID: 6376628786491422502}
+  artifactSound: {fileID: 404992719}
+  artifactClip: {fileID: 8300000, guid: 28ca104ce15b35045adc25f665e5bd39, type: 3}
 --- !u!4 &5720713766998310955
 Transform:
   m_ObjectHideFlags: 0
