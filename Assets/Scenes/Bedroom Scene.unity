@@ -22439,9 +22439,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3cdc4ad01b596304d82407c73ff7811e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectName: 
-  objectText: 
-  hasText: 0
+  objectName: Funeral Pamphlet
+  objectText: Placeholder text please change
+  hasText: 1
 --- !u!1001 &2013147030
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -22640,6 +22640,7 @@ MonoBehaviour:
   itemName: {fileID: 247085703}
   interactionUI: {fileID: 1021522275}
   textTogglePrompt: {fileID: 255620985}
+  blurEffect: {fileID: 0}
 --- !u!114 &2032978305
 MonoBehaviour:
   m_ObjectHideFlags: 0
