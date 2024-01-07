@@ -8,6 +8,9 @@ public class KillCollider : MonoBehaviour
     MovementController move;
     FirstPersonCam fpc;
     PatrolRandom patrol;
+    [SerializeField] Animator anim;
+
+    [SerializeField] public bool testTrig;
 
 
     private void Start()
@@ -15,6 +18,7 @@ public class KillCollider : MonoBehaviour
         fpc = GameObject.Find("Camera").GetComponent<FirstPersonCam>();
         move = GameObject.Find("Player").GetComponent<MovementController>();
         patrol = GameObject.Find("Monster").GetComponent <PatrolRandom>();
+        testTrig = false;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -22,6 +26,16 @@ public class KillCollider : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
             PlayerDead();
+            anim.SetTrigger("Attack");
+        }
+    }
+
+    private void Update()
+    {
+        if (testTrig)
+        {
+            anim.SetTrigger("Attack");
+
         }
     }
 

@@ -29,6 +29,7 @@ public class EnemyFOV : MonoBehaviour
     public float lostInterestForSec;
 
     PatrolRandom patrol;
+    public Animator anim;
 
     private void Start()
     {
@@ -89,6 +90,12 @@ public class EnemyFOV : MonoBehaviour
 
     public void Update()
     {
+        if (!canSeePlayer && !hasSeenPlayer)
+        {
+            Walking();
+            enemyAgent.speed = 3f;
+        }
+
         if (canSeePlayer)
         {
             hasSeenPlayer = true;
@@ -96,6 +103,10 @@ public class EnemyFOV : MonoBehaviour
             Vector3 playerPosY = playerPos.position;
             playerPosY.y = enemyAgentTransform.position.y;
             enemyAgentTransform.LookAt(playerPosY);
+
+            enemyAgent.speed = 5f;
+
+            Running();
         }
         else
         {
@@ -116,5 +127,22 @@ public class EnemyFOV : MonoBehaviour
         //{
         //    patrol.PatrolToRandomPoint();
         //}
+    }
+
+    void Walking()
+    {
+        anim.SetBool("IsWalking", true);
+        anim.SetBool("IsRunning", false);
+    }
+
+    void Idle()
+    {
+        anim.SetBool("IsIdle", true);
+    }
+
+    void Running()
+    {
+        anim.SetBool("IsRunning", true);
+        anim.SetBool("IsWalking", true);
     }
 }
