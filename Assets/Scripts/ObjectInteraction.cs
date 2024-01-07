@@ -49,8 +49,13 @@ public class ObjectInteraction : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0) && currentTime <= 0)
         {
-            ResetHeldObjPosAndRot();
-            ReleaseObject();
+            // if dropping objects doesn't work anymore then put the code in here outside of this if statement
+            if (objectPickedUp)
+            {
+                ResetHeldObjPosAndRot();
+                ReleaseObject();
+            }
+            
         }
 
         if (Input.GetMouseButton(1) && objectPickedUp)
@@ -81,11 +86,13 @@ public class ObjectInteraction : MonoBehaviour
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
         crosshair.SetActive(false);
-        blurEffect.gameObject.SetActive(true);
+        //blurEffect.gameObject.SetActive(true);
 
         currentTime = cooldown;
 
         Debug.Log("picked up");
+
+        pickedUpObject.GetComponent<BoxCollider>().enabled = false;
 
         // lewis code
         // looks for the data component on the selected object
@@ -101,13 +108,13 @@ public class ObjectInteraction : MonoBehaviour
 
     void ReleaseObject()
     {
+        pickedUpObject.GetComponent<BoxCollider>().enabled = true;
         objectPickedUp = false;
         pickedUpObject = null;
         camScript.enabled = true;
         moveScript.canMove = true;
 
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
+        LockMouse();
         crosshair.SetActive(true);
         blurEffect.gameObject.SetActive(false);
 
@@ -133,8 +140,7 @@ public class ObjectInteraction : MonoBehaviour
         camScript.enabled = false;
         moveScript.canMove = false;
 
-        Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
+        ReleaseMouse();
     }
 
     void RunTimer()
@@ -143,5 +149,22 @@ public class ObjectInteraction : MonoBehaviour
         { 
             currentTime -= Time.deltaTime;
         } 
+    }
+
+    private void ReleaseMouse()
+    {
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+    }
+
+    private void LockMouse()
+    {
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+    }
+
+    public void CloseSleepUI()
+    {
+        sleepText.gameObject.SetActive(false);
     }
 }
