@@ -159,4 +159,9 @@ public class ObjectInteraction : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }
+
+    public void CloseSleepUI()
+    {
+        sleepText.gameObject.SetActive(false);
+    }
 }

@@ -25,4 +25,9 @@ public class ButtonActions : MonoBehaviour
 
         SceneManager.LoadScene("Forest");
     }
+
+    public void NoButton()
+    {
+        FindObjectOfType<ObjectInteraction>().CloseSleepUI();
+    }
 }
