@@ -41,7 +41,7 @@ public class PatrolRandom : MonoBehaviour
         }
     }
 
-    private void PatrolToRandomPoint()
+    public void PatrolToRandomPoint()
     {
         // Select a random index from the patrol points list
         int randomIndex = Random.Range(0, patrolPoints.Length);

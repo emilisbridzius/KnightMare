@@ -93,7 +93,14 @@ public class EnemyFOV : MonoBehaviour
         if (!canSeePlayer && !hasSeenPlayer)
         {
             Walking();
-            enemyAgent.speed = 3f;
+
+            if (enemyAgent.speed != 3f)
+            {
+                enemyAgent.speed = 3f;
+
+            }
+
+            patrol.PatrolToRandomPoint();
         }
 
         if (canSeePlayer)
@@ -104,7 +111,11 @@ public class EnemyFOV : MonoBehaviour
             playerPosY.y = enemyAgentTransform.position.y;
             enemyAgentTransform.LookAt(playerPosY);
 
-            enemyAgent.speed = 5f;
+            if (enemyAgent.speed != 5f)
+            {
+                enemyAgent.speed = 5f;
+
+            }
 
             Running();
         }
