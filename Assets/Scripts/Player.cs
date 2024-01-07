@@ -7,6 +7,14 @@ public class Player : MonoBehaviour
     // makin it public cus i cant be arsed
     public List<PlayerFlags> playerFlags;
 
+    private int artifactCount;
+
+    public int ArtifactCount
+    {
+        get { return artifactCount; }
+        set { artifactCount = value; }
+    }
+
     // Start is called before the first frame update
     void Start()
     {

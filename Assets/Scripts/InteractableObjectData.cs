@@ -8,6 +8,7 @@ public class InteractableObjectData : MonoBehaviour
     [SerializeField] private string objectName; // the name of the in-universe object
     [SerializeField][TextArea] private string objectText; // toggleable text the player can read while interacting with an object that has words on it
     [SerializeField] private bool hasText; // A bool for checking if the object actually has text in it
+    [SerializeField] private bool isArtifact; // a bool for checking if the object is an artifact to be collected
 
     public string ObjectName
     {
@@ -21,6 +22,11 @@ public class InteractableObjectData : MonoBehaviour
 
     public bool HasText
     {
-       get {  return hasText; }
+       get { return hasText; }
+    }
+
+    public bool IsArtifact
+    {
+        get { return isArtifact; }
     }
 }
