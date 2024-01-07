@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -14,6 +15,7 @@ public class ObjectInteraction : MonoBehaviour
     [SerializeField] MovementController moveScript;
     [SerializeField] AudioSource artifactSound;
     [SerializeField] AudioClip artifactClip;
+    [SerializeField] private TMP_Text artifactCountUI;
 
     float currentTime;
     float cooldown = 0.5f;
@@ -96,8 +98,19 @@ public class ObjectInteraction : MonoBehaviour
     {
         FindObjectOfType<Player>().ArtifactCount++;
         Destroy(pickedUpObject);
+        FindObjectOfType<Player>().CheckArtifactCount();
+        StartCoroutine(ArtifactUI());
     }
 
+
+    private IEnumerator ArtifactUI()
+    {
+        artifactCountUI.gameObject.SetActive(true);
+        artifactCountUI.text = FindObjectOfType<Player>().ArtifactCount + "/5";
+
+        yield return new WaitForSeconds(1f);
+        artifactCountUI.gameObject.SetActive(false);
+    }
 
     void PickUpObject()
     {
@@ -119,8 +132,15 @@ public class ObjectInteraction : MonoBehaviour
         currentTime = cooldown;
 
         Debug.Log("picked up");
-
-        pickedUpObject.GetComponent<BoxCollider>().enabled = false;
+        if (pickedUpObject.GetComponent<BoxCollider>() != null)
+        {
+            pickedUpObject.GetComponent<BoxCollider>().enabled = false;
+        }
+        else
+        {
+            pickedUpObject.GetComponent<MeshCollider>().enabled = false;
+        }
+        
 
         AudioSource.PlayClipAtPoint(artifactClip, artifactSound.transform.position, volumeSetting);
 
@@ -141,7 +161,15 @@ public class ObjectInteraction : MonoBehaviour
 
     void ReleaseObject()
     {
-        pickedUpObject.GetComponent<BoxCollider>().enabled = true;
+        if (pickedUpObject.GetComponent<BoxCollider>() != null)
+        {
+            pickedUpObject.GetComponent<BoxCollider>().enabled = true;
+        }
+        else
+        {
+            pickedUpObject.GetComponent<MeshCollider>().enabled = true;
+        }
+        
         objectPickedUp = false;
 
         pickedUpObject = null;

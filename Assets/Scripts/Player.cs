@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
@@ -81,5 +82,21 @@ public class Player : MonoBehaviour
 
         playerFlags = data.playerFlags;
         artifactCount = data.artifactCount;
+    }
+
+    public void CheckArtifactCount()
+    {
+        if (SceneManager.GetActiveScene().name == "Forest")
+        {
+            if (artifactCount == 5)
+            {
+                SaveData();
+                SceneManager.LoadScene("BedroomScene");
+            }
+            else
+            {
+                return;
+            }
+        }
     }
 }
