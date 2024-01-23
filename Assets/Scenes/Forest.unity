@@ -4904,7 +4904,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4829218720548000087, guid: 07b15099b85972040a242dbdaa889e7a, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4829218720548000106, guid: 07b15099b85972040a242dbdaa889e7a, type: 3}
       propertyPath: isArtifact
@@ -18632,8 +18632,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.031079628, y: 0.020000001, z: 0.020000001}
-  m_Center: {x: -0.005539799, y: 6.449173e-12, z: -0.000000119199775}
+  m_Size: {x: 0.099904016, y: 0.02183564, z: 0.020532424}
+  m_Center: {x: 0.028872322, y: 0.00012084962, z: 0.0002660904}
 --- !u!33 &3469287837705699560
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -18669,8 +18669,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.0143404985, y: 0.0050436403, z: 0.01851235}
-  m_Center: {x: 0.0012867401, y: -0.000105861334, z: -0.0011932998}
+  m_Size: {x: 0.016782217, y: 0.007418386, z: 0.020692248}
+  m_Center: {x: 0.001437898, y: 0.0010815136, z: -0.0001033318}
 --- !u!33 &3469287838179433362
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -18690,8 +18690,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.020000003, y: 0.02, z: 0.0001724688}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 0.03627868, y: 0.029561156, z: 0.0026904696}
+  m_Center: {x: 0.00037209757, y: 0.0008632287, z: 0.0012589822}
 --- !u!114 &3469287838179433364
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18743,8 +18743,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.0032849666, y: 0.003454018, z: 0.0030461347}
-  m_Center: {x: 0, y: 0, z: 0.00047477253}
+  m_Size: {x: 0.0048207194, y: 0.003878264, z: 0.003410736}
+  m_Center: {x: 0.000028248412, y: 0.00003530875, z: 0.0006570738}
 --- !u!4 &3499533771867925953
 Transform:
   m_ObjectHideFlags: 0
@@ -19851,6 +19851,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 01a931774d44bc141960f0a085ff8132, type: 3}
   - {fileID: 8300000, guid: c4f23080882bb3d448a60c68b74da9a9, type: 3}
   playerSound: {fileID: 673716620}
+  interactionPrompt: {fileID: 0}
   soundTimer: 0
   soundInterval: 0.8
   canMove: 1

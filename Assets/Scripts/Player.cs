@@ -19,7 +19,15 @@ public class Player : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        if (SaveSystem.DoesPlayerFileExist())
+        {
+            LoadData();
+        }
+        else
+        {
+            SaveSystem.CreatePlayerFile(this);
+            SaveData();
+        }
     }
 
     // Update is called once per frame

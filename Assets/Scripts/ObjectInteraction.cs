@@ -16,6 +16,7 @@ public class ObjectInteraction : MonoBehaviour
     [SerializeField] AudioSource artifactSound;
     [SerializeField] AudioClip artifactClip;
     [SerializeField] private TMP_Text artifactCountUI;
+    [SerializeField] private GameObject interactionPrompt;
 
     float currentTime;
     float cooldown = 0.5f;
@@ -215,6 +216,11 @@ public class ObjectInteraction : MonoBehaviour
 
     void BedActivation()
     {
+        if (interactionPrompt != null)
+        {
+            interactionPrompt.SetActive(false);
+        }
+
         sleepText.gameObject.SetActive(true);
 
         camScript.enabled = false;
@@ -246,6 +252,9 @@ public class ObjectInteraction : MonoBehaviour
     public void CloseSleepUI()
     {
         sleepText.gameObject.SetActive(false);
+        LockMouse();
+        camScript.enabled = true;
+        moveScript.canMove = true;
     }
 
     public void LockRotation()
