@@ -49,6 +49,8 @@ public class MainMenuUI : MonoBehaviour
 
         yield return new WaitForSeconds(1f);
 
+        SaveSystem.DeletePlayerFile();
+
         SceneManager.LoadScene("BedroomScene");
     }
 

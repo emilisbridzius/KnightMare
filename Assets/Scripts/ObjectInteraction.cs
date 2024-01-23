@@ -61,6 +61,12 @@ public class ObjectInteraction : MonoBehaviour
             {
                 if (pickedUpObject.GetComponent<InteractableObjectData>() != null)
                 {
+                    if (pickedUpObject.GetComponent<InteractableObjectData>().ObjectName == "Key") 
+                    {
+                        // temp maybe until someone decides that a cutscene is way cooler
+                        SceneManager.LoadScene("MainMenu");
+                    }
+
                     if (pickedUpObject.GetComponent<InteractableObjectData>().IsArtifact)
                     {
                         PickupArtifact();

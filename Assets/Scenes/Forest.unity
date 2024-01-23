@@ -18705,7 +18705,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectName: Letter
-  objectText: Text
+  objectText: "My dear pumpkin,\r\nI know you\u2019re busy with work, and I understand
+    that it\u2019s important for us, but please come home. We\u2019ve got enough
+    money for you to take time off, so why won\u2019t you?\r\nI\u2019m hoping that
+    you take this time off, because recently I really feel like you\u2019ve lost
+    a spark when we\u2019re together.\r\nPlease write back soon.\r\nLots of Love\r\nLauren
+    xx"
   hasText: 1
   isArtifact: 1
 --- !u!33 &3469287838463433121
@@ -19463,6 +19468,7 @@ MonoBehaviour:
   artifactSound: {fileID: 404992719}
   artifactClip: {fileID: 8300000, guid: 28ca104ce15b35045adc25f665e5bd39, type: 3}
   artifactCountUI: {fileID: 1901681077}
+  interactionPrompt: {fileID: 0}
 --- !u!4 &5720713766998310955
 Transform:
   m_ObjectHideFlags: 0
