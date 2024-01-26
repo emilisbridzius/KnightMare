@@ -17,6 +17,7 @@ public class ObjectInteraction : MonoBehaviour
     [SerializeField] AudioClip artifactClip;
     [SerializeField] private TMP_Text artifactCountUI;
     [SerializeField] private GameObject interactionPrompt;
+    [SerializeField] private GameObject bedroomDemoEndFadeIn;
 
     float currentTime;
     float cooldown = 0.5f;
@@ -64,7 +65,7 @@ public class ObjectInteraction : MonoBehaviour
                     if (pickedUpObject.GetComponent<InteractableObjectData>().ObjectName == "Key") 
                     {
                         // temp maybe until someone decides that a cutscene is way cooler
-                        SceneManager.LoadScene("MainMenu");
+                        StartCoroutine(EndOfDemoSequence());
                     }
 
                     if (pickedUpObject.GetComponent<InteractableObjectData>().IsArtifact)
@@ -99,6 +100,16 @@ public class ObjectInteraction : MonoBehaviour
         {
             LockRotation();
         }
+    }
+
+    // demo placeholder sequence remove in the final game ?????
+    private IEnumerator EndOfDemoSequence()
+    {
+        bedroomDemoEndFadeIn.SetActive(true);
+
+        yield return new WaitForSeconds(2.2f);
+
+        SceneManager.LoadScene("EndOfDemo");
     }
 
 

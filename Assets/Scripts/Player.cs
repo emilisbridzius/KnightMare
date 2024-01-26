@@ -8,7 +8,7 @@ public class Player : MonoBehaviour
     // makin it public cus i cant be arsed
     public List<PlayerFlags> playerFlags;
 
-    private int artifactCount;
+    [SerializeField] private int artifactCount;
 
     public int ArtifactCount
     {
@@ -28,6 +28,8 @@ public class Player : MonoBehaviour
             SaveSystem.CreatePlayerFile(this);
             SaveData();
         }
+
+        Debug.Log(artifactCount);
     }
 
     // Update is called once per frame

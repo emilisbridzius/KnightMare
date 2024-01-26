@@ -11,6 +11,7 @@ public class BedroomManager : MonoBehaviour
     void Start()
     {
         player = FindObjectOfType<Player>();
+        Debug.Log("BedroomManagerRef = " + player.ArtifactCount);
 
         StartCoroutine(SpawnKeyDelayed());
     }

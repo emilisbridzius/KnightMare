@@ -1861,6 +1861,7 @@ GameObject:
   m_Component:
   - component: {fileID: 815353660}
   - component: {fileID: 815353661}
+  - component: {fileID: 815353662}
   m_Layer: 5
   m_Name: MenuButtons
   m_TagString: Untagged
@@ -1911,6 +1912,22 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &815353662
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 815353659}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c2a73cfd1c66d04cb33ef11eb7ac4b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 0.1
+  maxOffset: 10
+  boundaryX: 5
+  boundaryY: 5
 --- !u!1 &816183658
 GameObject:
   m_ObjectHideFlags: 0
